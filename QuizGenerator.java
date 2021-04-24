@@ -3,6 +3,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+//NOTES
+// Hi welcome our program 
+// from 1-4  
+// take the user input  
+// 1 ask them for following: question, choices, and answer
+// answer can be put into arraylist which contains all the answer for type true/false
+// when time to answer said questions 
+
 
 public class QuizGenerator {
     
@@ -24,25 +32,28 @@ public class QuizGenerator {
            
             if(questionType == 1) //True or False
             {
-                System.out.println("What is the user input: true/false?");
-                try
-                {
-                    BufferedReader userinput1 = new BufferedReader(new InputStreamReader((System.in)));
-                    BufferedReader answerinput1 = new BufferedReader(new InputStreamReader((System.in)));
+                // System.out.println("What is the user input: true/false?");
+                // try
+                // {
+                //     BufferedReader userinput1 = new BufferedReader(new InputStreamReader((System.in)));
+                //     BufferedReader answerinput1 = new BufferedReader(new InputStreamReader((System.in)));
 
-                    String uinput1 = Boolean.parseBoolean(userinput1.readLine());
+                //     String uinput1 = Boolean.parseBoolean(userinput1.readLine());
 
-                    System.out.println("What is the answer: true or false?");
+                //     System.out.println("What is the answer: true or false?");
                     
-                    boolean answerkey1 = answerinput1.readLine();
-                    TrueOrFalse tf = new TrueOrFalse(answerkey1);
+                //     boolean answerkey1 = answerinput1.readLine();
+                //     TrueOrFalse tf = new TrueOrFalse(answerkey1);
 
-                    System.out.println("[Question] : " + questionAsked);
-                    System.out.println(tf);
-                }
-                catch(IOException e){   
-                    e.printStackTrace(); 
-                }       
+                //     System.out.println("[Question] : " + questionAsked);
+                //     System.out.println(tf);
+                // }
+                // catch(IOException e){   
+                //     e.printStackTrace(); 
+                // }       
+
+                System.out.println("[Question] : " + questionAsked);
+                System.out.println("T / F");
             }
             else if(questionType == 2) //Multiple Choice
             {
@@ -62,7 +73,7 @@ public class QuizGenerator {
             }
             else if(questionType == 3) //Open Ended
             {
-                
+                System.out.println("[Question] : " + questionAsked);
             }
             else if(questionType == 4) //Mutiple Answers 
             { 
@@ -107,7 +118,7 @@ public class QuizGenerator {
         @Override
         public String toString()
         {
-            return " The answer for this [T/F] question is " + " (" + answer  + ")";
+            return "The answer for this [T/F] question is " + " (" + answer  + ")";
         }
     }
     
@@ -130,12 +141,7 @@ public class QuizGenerator {
     }
 
     
-    // Hi welcome our program 
-    // from 1-4  
-    // take the user input  
-    // 1 ask them for following: question, choices, and answer
-    // answer can be put into arraylist which contains all the answer for type true/false
-    // when time to answer said questions 
+    
 
 
     public static class OpenEnded
@@ -187,16 +193,66 @@ public class QuizGenerator {
         }
     }
 
-   
+   public static String stringLineReader()
+   {
+       BufferedReader input = new BufferedReader(new InputStreamReader((System.in)));
+       try 
+       {
+        String userInput = input.readLine();
+        return userInput;
+        } 
+        catch (IOException e) 
+        {
+        e.printStackTrace();
+        }
+
+       return "";
+   }
+
+   public static Integer intLineReader()
+   {
+        BufferedReader input = new BufferedReader(new InputStreamReader((System.in)));
+        try 
+        {
+        int userInput = Integer.parseInt(input.readLine());
+        return userInput;
+        } 
+        catch (IOException e) 
+        {
+        e.printStackTrace();
+        }
+
+        return 0;
+   }
+
+
+   public static Boolean boolLineReader()
+   {
+        BufferedReader input = new BufferedReader(new InputStreamReader((System.in)));
+        try 
+        {
+        String userInput = input.readLine();
+        
+            if(userInput.equals("T") || userInput.equals("true") || userInput.equals("True"))
+            {
+                return true;
+            }
+            else if(userInput.equals("F") || userInput.equals("false") || userInput.equals("False"))
+            {
+                return false;
+            }
+        
+        } 
+        catch (IOException e) 
+        {
+        e.printStackTrace();
+        }
+        return true;
+   }
 
 
     public static void main(String args[])
     {
-    
-       
-     
-        
-        
         BufferedReader reader = new BufferedReader(new InputStreamReader((System.in)));
         
         while(true)
@@ -210,35 +266,30 @@ public class QuizGenerator {
             switch(num) 
             {
                 case 1:
-                    System.out.println(" For the answer please put in the format of true or false");  
-                    BufferedReader Q1 = new BufferedReader(new InputStreamReader((System.in)));
-                    String input1 = Q1.readLine();
+                    System.out.println("For the answer please put in the format of true or false");  
+                    String input1 = stringLineReader();
                     Questions question1 = new Questions(1,input1);
                     question1.initiateQuestion();
-
                     break; 
                     
                 case 2:
-                    System.out.println(" For the answer please use the following format # of choices possible, choice options, answers to mc ");
-                    BufferedReader q2  = new BufferedReader(new InputStreamReader(System.in)); 
-                    String input2 = q2.readLine(); 
+                    System.out.println("For the answer please use the following format # of choices possible, choice options, answers to mc ");
+                    String input2 = stringLineReader();
                     Questions question2 = new Questions(2,input2);
                     question2.initiateQuestion();
                     break;
 
                 case 3:
-                    System.out.println(" For the answer please put in the format of Open Ended: a variable ");  
-                    BufferedReader q3  = new BufferedReader(new InputStreamReader(System.in)); 
-                    String input3 = q3.readLine();      
+                    System.out.println("For the answer please put in the format of Open Ended: a variable ");  
+                    String input3 = stringLineReader();
                     Questions question3 = new Questions(2,input3);
                     question3.initiateQuestion();    
 
                     
                     break;
                 case 4:
-                    System.out.println(" For the answer please put in the format of Multiple Answer"); 
-                    BufferedReader Q4 = new BufferedReader(new InputStreamReader((System.in)));
-                    String input4 = Q4.readLine();
+                    System.out.println("For the answer please put in the format of Multiple Answer"); 
+                    String input4 = stringLineReader();
                     Questions question4 = new Questions(4,input4);
                     question4.initiateQuestion();
 
