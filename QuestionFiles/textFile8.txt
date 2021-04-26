@@ -1,0 +1,20 @@
+[Question] : Turtles are usually colored green?
+
+	[Answers] : [[T], [F]]
+
+[Question] : Who is the first Spiderman?
+
+	[Answers] : [a) Toby Macguire, b) Tom Holland, c) Andrew Garfield, d) Henry Cavill]
+
+[Question] : How was George Washington named the first president?
+
+	[Answers] : [Make sure to add his accomplishments as an inspiring leader]
+
+[Question] : Who is worthy of holding Thor's Hammer
+
+	[Answers] : [a) Thor, b) Iron Man, c) Captain America, d) Hulk, e) Black Widow, f) Hawkeye]
+
+[Question] : Who is the Winter Soldier?
+
+	[Answers] : [a) Bucky Barnes, b) Tony Stark, c) John Walker, d) Chris Hemsworth]
+

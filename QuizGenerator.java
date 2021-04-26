@@ -123,6 +123,14 @@ public class QuizGenerator {
                 ArrayList<String> nully = new ArrayList<>();
                 return nully;
             }
+
+        }
+
+        public String AnswerKey()
+        {
+            System.out.println("Enter Answer to Question");
+            String input = stringLineReader();
+            return input;
         }
 
         public String getQuestionAsked()
@@ -133,12 +141,10 @@ public class QuizGenerator {
         @Override
         public String toString()
         {
-            return "[Question Type] : " + questionType + " [Question Asked] : " + questionAsked;
-        }
-        
-
-    }
-    
+            //return "[Question Type] : " + questionType + " [Question Asked] : " + questionAsked;
+            return "[Question] : "+questionAsked;
+        }   
+    }    
     public static class TrueOrFalse 
     {
         private boolean answer;   
@@ -222,8 +228,6 @@ public class QuizGenerator {
             this.correct = correct;
         }
 
-
-
         @Override
         public String toString()
         {
@@ -255,7 +259,7 @@ public class QuizGenerator {
             System.out.println("");
             System.out.println("Enter File Directory, Name, and File Type");
             String fileName = stringLineReader();
-            File newFile = new File(fileName);
+            File newFile = new File("QuestionFiles/"+fileName);
             FileOutputStream is = new FileOutputStream(newFile);
             OutputStreamWriter osw = new OutputStreamWriter(is);
             BufferedWriter w = new BufferedWriter(osw);
@@ -264,7 +268,11 @@ public class QuizGenerator {
             while (iterate.hasNext()) {
                 Map.Entry obj = (Entry)iterate.next();
                 //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
-                w.write(obj.getKey()+" : [Answers] : "+obj.getValue());
+                w.write(""+obj.getKey());
+                w.newLine();
+                w.newLine();
+                w.write("\t[Answers] : "+obj.getValue());
+                w.newLine();
                 w.newLine();
             }
             w.close();
@@ -324,7 +332,6 @@ public class QuizGenerator {
             {
                 return false;
             }
-        
         } 
         catch (IOException e) 
         {
@@ -338,11 +345,12 @@ public class QuizGenerator {
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader((System.in)));
         //List<Questions> QuestionList = new ArrayList<>();
-        LinkedHashMap<Questions,List<String>> QuestionHash = new LinkedHashMap<Questions,List<String>>(); 
+        LinkedHashMap<Questions,List<String>> QuestionHash = new LinkedHashMap<Questions,List<String>>();
+        LinkedHashMap<String,String> AnswersHash = new LinkedHashMap<String,String>(); 
 
         while(true)
         {
-            System.out.println("Insert Question Type : [1] - True/False \t[2] - Multiple Choice \t[3] - Open Ended \t[4] - Multiple Answers \t[5] - Show Questions");
+            System.out.println("Insert Question Type : [1] - True/False \t[2] - Multiple Choice \t[3] - Open Ended \t[4] - Multiple Answers \t[5] - Show Questions \t[6] - Generate Amswer Sheet \t[7] - Show Answer Key");
 
             try 
             {
@@ -360,6 +368,8 @@ public class QuizGenerator {
                         String inputTF = stringLineReader();
                         Questions questionType1 = new Questions(1,inputTF);
                         List<String> answers_tf = questionType1.initiateQuestion();
+                        String answerTF = questionType1.AnswerKey();
+                        AnswersHash.put(inputTF,answerTF);
                         QuestionHash.put(questionType1,answers_tf);
                         System.out.println();
                         break; 
@@ -379,6 +389,8 @@ public class QuizGenerator {
                         String inputMC = stringLineReader();
                         Questions questionType2 = new Questions(2,inputMC);
                         List<String> answers_mc = questionType2.initiateQuestion();
+                        String answerMC = questionType2.AnswerKey();
+                        AnswersHash.put(inputMC,answerMC);
                         QuestionHash.put(questionType2,answers_mc);
                         System.out.println();
                         break;
@@ -393,6 +405,8 @@ public class QuizGenerator {
                         String inputOE = stringLineReader();
                         Questions questionType3 = new Questions(3,inputOE);
                         List<String> answers_oe = questionType3.initiateQuestion();
+                        String answerOE = questionType3.AnswerKey();
+                        AnswersHash.put(inputOE,answerOE);
                         QuestionHash.put(questionType3,answers_oe);
                         System.out.println();
                         break;
@@ -406,6 +420,8 @@ public class QuizGenerator {
                         String inputMA = stringLineReader();
                         Questions questionType4 = new Questions(4,inputMA);
                         List<String> answers_ma = questionType4.initiateQuestion();
+                        String answerMA = questionType4.AnswerKey();
+                        AnswersHash.put(inputMA,answerMA);
                         QuestionHash.put(questionType4,answers_ma);
                         System.out.println();
                         break;
@@ -413,7 +429,6 @@ public class QuizGenerator {
                         //Quiz file upload
                         System.out.println("Here are the results");
                         Iterator it = QuestionHash.entrySet().iterator();
-                        
                         
                         while (it.hasNext()) {
                             // Map.Entry mapElement = (Map.Entry)it.next();
@@ -427,8 +442,22 @@ public class QuizGenerator {
                         //Quiz Generator to take -> Save to txt file
                         makeFile(QuestionHash);
                         break;
+                    case 7:
+                        //Make Answer Key
+                        //Quiz file upload
+                        System.out.println("Here are the results");
+                        Iterator ity = AnswersHash.entrySet().iterator();
+                        
+                        while (ity.hasNext()) {
+                            // Map.Entry mapElement = (Map.Entry)it.next();
+                            // int questions = ((int)mapElement.getValue());   
+                            // System.out.println(mapElement.getKey() + " : " + questions);
+                            Map.Entry obj = (Entry)ity.next();
+                            System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
+                        }
+                        break;
                     default: 
-                        // System.out.println("Enter a number please"); 
+                        System.out.println("Enter a number please"); 
                         break;
                 }      
             }
