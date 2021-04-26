@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 import java.util.Map.*;
 import java.util.List; 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-// import java.io.File;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.*;
 
 
@@ -63,10 +65,10 @@ public class QuizGenerator {
                 System.out.println("Ex: d) Johnny Depp");
                 String d = stringLineReader();
 
-                mul.add(a); 
-                mul.add(b);
-                mul.add(c); 
-                mul.add(d); 
+                mul.add("a) "+a); 
+                mul.add("b) "+b);
+                mul.add("c) "+c); 
+                mul.add("d) "+d); 
 
                 return mul;
             }
@@ -84,35 +86,35 @@ public class QuizGenerator {
             {
                 ArrayList<String> mula = new ArrayList<>();
                 System.out.println("Input the m/a opinion");
-                System.out.println("Ex: a) Blackbeard");
+                //System.out.println("Ex: a) Blackbeard");
                 String a = stringLineReader();
                 
                 System.out.println("Input the m/a opinion");
-                System.out.println("Ex: b) Jamie from Joe Rogan Podcase");
+                //System.out.println("Ex: b) Jamie from Joe Rogan Podcase");
                 String b = stringLineReader();
                 
                 System.out.println("Input the m/a opinion");
-                System.out.println("Ex: c) Columbus");
+                //System.out.println("Ex: c) Columbus");
                 String c = stringLineReader();
     
                 System.out.println("Input the m/a opinion");
-                System.out.println("Ex: d) Johnny Depp");
+                //System.out.println("Ex: d) Johnny Depp");
                 String d = stringLineReader();
 
                 System.out.println("Input a m/a opinion");
-                System.out.println("Ex: e) SpongeBob Squarepants");
+                //System.out.println("Ex: e) SpongeBob Squarepants");
                 String e = stringLineReader();
 
                 System.out.println("Input a m/a opinion");
-                System.out.println("Ex: f) Patrick Starfish");
+                //System.out.println("Ex: f) Patrick Starfish");
                 String f = stringLineReader();
 
-                mula.add(a); 
-                mula.add(b);
-                mula.add(c);
-                mula.add(d);
-                mula.add(e);
-                mula.add(f);
+                mula.add("a) "+a); 
+                mula.add("b) "+b);
+                mula.add("c) "+c);
+                mula.add("d) "+d);
+                mula.add("e) "+e);
+                mula.add("f) "+f);
 
                 return mula;
             }
@@ -121,6 +123,11 @@ public class QuizGenerator {
                 ArrayList<String> nully = new ArrayList<>();
                 return nully;
             }
+        }
+
+        public String getQuestionAsked()
+        {
+            return questionAsked;
         }
 
         @Override
@@ -237,6 +244,34 @@ public class QuizGenerator {
         public String toString()
         {
             return "";
+        }
+    }
+
+//===================================Write to File===============================================
+    public static void makeFile(LinkedHashMap<Questions,List<String>> QuestionHash)
+    {
+        try 
+        {
+            System.out.println("");
+            System.out.println("Enter File Directory, Name, and File Type");
+            String fileName = stringLineReader();
+            File newFile = new File(fileName);
+            FileOutputStream is = new FileOutputStream(newFile);
+            OutputStreamWriter osw = new OutputStreamWriter(is);
+            BufferedWriter w = new BufferedWriter(osw);
+
+            Iterator iterate = QuestionHash.entrySet().iterator();
+            while (iterate.hasNext()) {
+                Map.Entry obj = (Entry)iterate.next();
+                //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
+                w.write(obj.getKey()+" : [Answers] : "+obj.getValue());
+                w.newLine();
+            }
+            w.close();
+        }
+        catch (IOException e)
+        {
+            System.err.println("[Error] : unable to make/write to new file");
         }
     }
 
@@ -389,7 +424,8 @@ public class QuizGenerator {
                         }
                         break;
                     case 6:
-                        //Quiz Generator to take
+                        //Quiz Generator to take -> Save to txt file
+                        makeFile(QuestionHash);
                         break;
                     default: 
                         // System.out.println("Enter a number please"); 
