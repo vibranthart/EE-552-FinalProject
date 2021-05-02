@@ -1,0 +1,16 @@
+[Question] : My Socks are Red?
+
+	[Answers] : True
+
+[Question] : Whose the main characater in Breath of the Wild?
+
+	[Answers] : A
+
+[Question] : Explain how George Washington almost didnt cross the river because of aliens.
+
+	[Answers] : He was almost abducted by the aliens
+
+[Question] : Who can lift Thor's Hammer?
+
+	[Answers] : CF
+

@@ -19,6 +19,17 @@ import java.util.*;
 // 1 ask them for following: question, choices, and answer
 // answer can be put into arraylist which contains all the answer for type true/false
 // when time to answer said questions 
+//
+// 2 Question Type
+// Question asked
+// a
+// b
+// c
+// d
+// Answer -> A
+//  
+//Read from the saved file and program should understand its mc due to 2 
+// Final print out with results 
 
 
 public class QuizGenerator {
@@ -138,11 +149,17 @@ public class QuizGenerator {
             return questionAsked;
         }
 
+        public int getQuestionType()
+        {
+            return questionType;
+        }
+
         @Override
         public String toString()
         {
             //return "[Question Type] : " + questionType + " [Question Asked] : " + questionAsked;
-            return "[Question] : "+questionAsked;
+            //return "[Question] : "+questionAsked;
+            return ""+questionAsked;
         }   
     }    
     public static class TrueOrFalse 
@@ -249,39 +266,137 @@ public class QuizGenerator {
         {
             return "";
         }
-    }
+    }  
+
+
+    // public static void take_quiz(){
+    //     System.out.println("");
+    //     System.out.println("Enter File name");
+    //     String fileName = stringLineReader();
+    //     try {
+    //         BufferedReader br = new BufferedReader(new FileReader(fileName));
+    //         String quiz_stuff = br.readLine(); 
+    //         while(quiz_stuff != null){
+    //         System.out.println(quiz_stuff);
+    //         quiz_stuff = br.readLine(); 
+    //         }   
+    //     }   
+    //     catch (IOException e) {
+    //         e.printStackTrace(); 
+    //     }
+
+    //     // Iterator iterate = QuestionHash.entrySet().iterator();
+    //     // while (iterate.hasNext()) {
+    //     //     Map.Entry obj = (Entry)iterate.next();
+    //     //     //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
+    //     //     w.write(""+obj.getKey());
+    //     //     w.newLine();
+    //     //     w.newLine();
+    //     //     w.write("\t[Choices] : "+obj.getValue());
+    //     //     w.newLine();
+    //     //     w.newLine();
+    //     // }
+    //     // w.close();
+            
+
+    // }
+
 
 //===================================Write to File===============================================
-    public static void makeFile(LinkedHashMap<Questions,List<String>> QuestionHash)
+    public static void makeFile(LinkedHashMap<Questions,List<String>> QuestionHash, LinkedHashMap<String, String> AnswerHash)
     {
         try 
         {
             System.out.println("");
             System.out.println("Enter File Directory, Name, and File Type");
             String fileName = stringLineReader();
+            
+            //this will create Question Files
             File newFile = new File("QuestionFiles/"+fileName);
             FileOutputStream is = new FileOutputStream(newFile);
             OutputStreamWriter osw = new OutputStreamWriter(is);
             BufferedWriter w = new BufferedWriter(osw);
 
+            //this will create answer file
+            File ansFile = new File("AnswerKey/"+fileName);
+            FileOutputStream ans = new FileOutputStream(ansFile);
+            OutputStreamWriter ansf = new OutputStreamWriter(ans);
+            BufferedWriter answ = new BufferedWriter(ansf);
+
+            //this will create save file
+            File saveFile = new File("SaveFile/"+fileName);
+            FileOutputStream save = new FileOutputStream(saveFile);
+            OutputStreamWriter savef = new OutputStreamWriter(save);
+            BufferedWriter savew = new BufferedWriter(savef);
+
+
+
+            //this will output information to Question file
             Iterator iterate = QuestionHash.entrySet().iterator();
             while (iterate.hasNext()) {
                 Map.Entry obj = (Entry)iterate.next();
                 //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
-                w.write(""+obj.getKey());
+                w.write("[Question] : "+obj.getKey());
                 w.newLine();
                 w.newLine();
-                w.write("\t[Answers] : "+obj.getValue());
+                w.write("\t[Choices] : "+obj.getValue());
                 w.newLine();
                 w.newLine();
             }
             w.close();
+
+            //This will be the output information for the answer file
+            Iterator ansiterate = AnswerHash.entrySet().iterator();
+            while (ansiterate.hasNext()) {
+                Map.Entry obj = (Entry)ansiterate.next();
+                //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
+                answ.write("[Question] : "+obj.getKey());
+                answ.newLine();
+                answ.newLine();
+                answ.write("\t[Answers] : "+obj.getValue());
+                answ.newLine();
+                answ.newLine();   
+            }
+            answ.close();
+
+            //This will be the output information for the answer file
+            Iterator saveiterate = QuestionHash.entrySet().iterator();
+            Iterator saveAnsiterate = AnswerHash.entrySet().iterator();
+            while (saveiterate.hasNext() && saveAnsiterate.hasNext()) {
+                Map.Entry objans = (Entry)saveAnsiterate.next();
+                Map.Entry obj = (Entry)saveiterate.next();
+                //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
+                // savew.write(""+obj.getKey());
+                // savew.newLine();
+                // savew.write(""+obj.getValue());
+                // savew.newLine();
+                Questions question = (Questions)obj.getKey();
+                List<String> questionsC = (List<String>)obj.getValue();
+                String questionAns = (String)objans.getValue();
+                savew.write(""+question.getQuestionType());
+                savew.newLine();
+                savew.write(question.getQuestionAsked());
+                savew.newLine();
+                for(String choices : questionsC)
+                {
+                    savew.write(choices);
+                    savew.newLine();
+                }
+                savew.write(questionAns);
+                savew.newLine();
+            }
+            savew.close();
+           
         }
         catch (IOException e)
         {
             System.err.println("[Error] : unable to make/write to new file");
         }
+        
+        
     }
+
+
 
 //===================================Line Readers================================================
    public static String stringLineReader()
@@ -350,7 +465,7 @@ public class QuizGenerator {
 
         while(true)
         {
-            System.out.println("Insert Question Type : [1] - True/False \t[2] - Multiple Choice \t[3] - Open Ended \t[4] - Multiple Answers \t[5] - Show Questions \t[6] - Generate Amswer Sheet \t[7] - Show Answer Key");
+            System.out.println("Insert Question Type : [1] - True/False \t[2] - Multiple Choice \t[3] - Open Ended \t[4] - Multiple Answers \t[5] - Show Questions \t[6] - Generate Answer Sheet \t[7] - Show Answer Key");
 
             try 
             {
@@ -359,11 +474,6 @@ public class QuizGenerator {
                 switch(num) 
                 {   
                     case 1:
-                        // System.out.println("For the answer please put in the format of true or false");  
-                        // String input1 = stringLineReader();
-                        // Questions question1 = new Questions(1,input1);
-                        // QuestionList.add(question1);
-                        // question1.initiateQuestion();
                         System.out.println("For the answer please put in the format of true or false");  
                         String inputTF = stringLineReader();
                         Questions questionType1 = new Questions(1,inputTF);
@@ -375,16 +485,6 @@ public class QuizGenerator {
                         break; 
                         
                     case 2:
-                        // System.out.println("For the answer please use the following format # of choices possible, choice options, answers to mc ");
-                         
-                        // System.out.println("Enter your question for m/c" + " (Do not put in a,b,c,d choice yet");
-                        // System.out.println("Ex: Who sailed the Ocean during 1492?"); 
-                        // String question = stringLineReader(); 
-                        
-                        // String input2 = stringLineReader();
-                        // Questions question2 = new Questions(2,input2);
-                        // QuestionList.add(question2);
-                        // question2.initiateQuestion();
                         System.out.println("For the answer please put in the format of m/c");  
                         String inputMC = stringLineReader();
                         Questions questionType2 = new Questions(2,inputMC);
@@ -395,12 +495,7 @@ public class QuizGenerator {
                         System.out.println();
                         break;
  
-                    case 3:
-                        // System.out.println("For the answer please put in the format of Open Ended: a variable ");  
-                        // String input3 = stringLineReader();
-                        // Questions question3 = new Questions(2,input3);
-                        // QuestionList.add(question3);
-                        // question3.initiateQuestion();    
+                    case 3:   
                         System.out.println("For the answer please put in the format of open ended");  
                         String inputOE = stringLineReader();
                         Questions questionType3 = new Questions(3,inputOE);
@@ -411,11 +506,6 @@ public class QuizGenerator {
                         System.out.println();
                         break;
                     case 4:
-                        // System.out.println("For the answer please put in the format of Multiple Answer"); 
-                        // String input4 = stringLineReader();
-                        // Questions question4 = new Questions(4,input4);
-                        // QuestionList.add(question4);
-                        // question4.initiateQuestion();
                         System.out.println("For the answer please put in the format of mutiple answers");  
                         String inputMA = stringLineReader();
                         Questions questionType4 = new Questions(4,inputMA);
@@ -431,16 +521,14 @@ public class QuizGenerator {
                         Iterator it = QuestionHash.entrySet().iterator();
                         
                         while (it.hasNext()) {
-                            // Map.Entry mapElement = (Map.Entry)it.next();
-                            // int questions = ((int)mapElement.getValue());   
-                            // System.out.println(mapElement.getKey() + " : " + questions);
                             Map.Entry obj = (Entry)it.next();
                             System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
                         }
                         break;
                     case 6:
                         //Quiz Generator to take -> Save to txt file
-                        makeFile(QuestionHash);
+                        makeFile(QuestionHash,AnswersHash);
+                       
                         break;
                     case 7:
                         //Make Answer Key
@@ -449,11 +537,10 @@ public class QuizGenerator {
                         Iterator ity = AnswersHash.entrySet().iterator();
                         
                         while (ity.hasNext()) {
-                            // Map.Entry mapElement = (Map.Entry)it.next();
-                            // int questions = ((int)mapElement.getValue());   
-                            // System.out.println(mapElement.getKey() + " : " + questions);
                             Map.Entry obj = (Entry)ity.next();
+                            //String hashValue = (String) obj.getValue();
                             System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
+                            //System.out.println(hashValue);
                         }
                         break;
                     default: 

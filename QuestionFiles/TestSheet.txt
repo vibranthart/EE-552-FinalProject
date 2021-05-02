@@ -1,0 +1,16 @@
+[Question] : My Socks are Red?
+
+	[Choices] : [[T], [F]]
+
+[Question] : Whose the main characater in Breath of the Wild?
+
+	[Choices] : [a) Link, b) Master Chief, c) Fornite Guy, d) Patricks Swazy]
+
+[Question] : Explain how George Washington almost didnt cross the river because of aliens.
+
+	[Choices] : [Make sure to note its a conspiracy theory.]
+
+[Question] : Who can lift Thor's Hammer?
+
+	[Choices] : [a) Iron Man, b) Hulk, c) Captain America, d) US Agent, e) Dr. Strange, f) Vision]
+
