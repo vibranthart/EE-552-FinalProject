@@ -1,0 +1,13 @@
+Quiz test1
+Name:_________________________
+
+Question 1: Who is the first president?
+
+	a) Trump
+
+	b) Benjamin Franklin
+
+	c) George Washington
+
+	d) Biden
+
