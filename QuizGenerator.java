@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
@@ -83,7 +84,7 @@ public class QuizGenerator {
 
                 return mul;
             }
-            else if(questionType == 3) // Open end 
+            else if(questionType == 3) // Open Ended 
             {
                 ArrayList<String> opend = new ArrayList<>();
                 System.out.println("Input Hints If Neede");
@@ -93,7 +94,7 @@ public class QuizGenerator {
 
                 return opend; 
             }
-            else if(questionType == 4) // mutiple answers 
+            else if(questionType == 4) // Mutiple Answers 
             {
                 ArrayList<String> mula = new ArrayList<>();
                 System.out.println("Input the m/a opinion");
@@ -157,8 +158,6 @@ public class QuizGenerator {
         @Override
         public String toString()
         {
-            //return "[Question Type] : " + questionType + " [Question Asked] : " + questionAsked;
-            //return "[Question] : "+questionAsked;
             return ""+questionAsked;
         }   
     }    
@@ -269,37 +268,194 @@ public class QuizGenerator {
     }  
 
 
-    // public static void take_quiz(){
-    //     System.out.println("");
-    //     System.out.println("Enter File name");
-    //     String fileName = stringLineReader();
-    //     try {
-    //         BufferedReader br = new BufferedReader(new FileReader(fileName));
-    //         String quiz_stuff = br.readLine(); 
-    //         while(quiz_stuff != null){
-    //         System.out.println(quiz_stuff);
-    //         quiz_stuff = br.readLine(); 
-    //         }   
-    //     }   
-    //     catch (IOException e) {
-    //         e.printStackTrace(); 
-    //     }
+    public static void takeQuiz(){
+        //System.out.println("[Error]: File Opener Still in Development");
+        File folder = new File("QuestionFiles/");
+        File[] listOfFiles = folder.listFiles();
+        for(int i=0; i<listOfFiles.length; i++)
+        {
+            if(listOfFiles[i].isFile())
+            {
+                System.out.println("File "+listOfFiles[i].getName());
+            }
+            else if(listOfFiles[i].isDirectory())
+            {
+                System.out.println("Directory "+listOfFiles[i].getName());
+            }
+        }
+        System.out.println("");
+        System.out.println("Enter File name");
+        String fileName = stringLineReader();
+        System.out.println("");
+        
+        System.out.println("Enter Your Name");
+        String userName = stringLineReader();
+        System.out.println("");
 
-    //     // Iterator iterate = QuestionHash.entrySet().iterator();
-    //     // while (iterate.hasNext()) {
-    //     //     Map.Entry obj = (Entry)iterate.next();
-    //     //     //System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
-    //     //     w.write(""+obj.getKey());
-    //     //     w.newLine();
-    //     //     w.newLine();
-    //     //     w.write("\t[Choices] : "+obj.getValue());
-    //     //     w.newLine();
-    //     //     w.newLine();
-    //     // }
-    //     // w.close();
+        ArrayList<String> userAnswer = new ArrayList<>();
+        ArrayList<String> correctAnswer = new ArrayList<>();
+        ArrayList<String> quizQuestions = new ArrayList<>();
+        int numOfQ = 0;
+        int score = 0;
+
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("SaveFile/"+fileName+".txt"));
+            //String question = br.readLine();
+            String question = br.readLine();
+            while(question != null)
+            {
+                try
+                {
+                    int qType = Integer.parseInt(br.readLine());
+                    if(qType == 1)
+                    {
+                        numOfQ++;
+                        question = br.readLine();
+                        System.out.println(question);
+                        quizQuestions.add(question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("");
+                        System.out.println("Enter Your Answer");
+                        String input = stringLineReader();
+                        userAnswer.add(input);
+                        correctAnswer.add(question);
+                        if(input.equals(question) == true)
+                        {
+                            //System.out.println("Correct");
+                            score++;
+                        }
+                    }
+                    else if(qType == 2)
+                    {
+                        numOfQ++;
+                        question = br.readLine();
+                        System.out.println(question);
+                        quizQuestions.add(question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("");
+                        System.out.println("Enter Your Answer");
+                        String input = stringLineReader();
+                        userAnswer.add(input);
+                        correctAnswer.add(question);
+                        if(input.equals(question) == true)
+                        {
+                            //System.out.println("Correct");
+                            score++;
+                        }
+                    }
+                    else if(qType == 3)
+                    {
+                        numOfQ++;
+                        question = br.readLine();
+                        System.out.println(question);
+                        quizQuestions.add(question);
+                        question = br.readLine();
+                        System.out.println(question);
+                        System.out.println("");
+                        System.out.println("Enter Your Answer");
+                        String input = stringLineReader();
+                        System.out.println("Will be Graded by teacher");
+                        correctAnswer.add(question);
+                        userAnswer.add(input);
+                        question = br.readLine();
+                    }
+                    else if(qType == 4)
+                    {
+                        numOfQ++;
+                        question = br.readLine();
+                        System.out.println(question);
+                        quizQuestions.add(question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("\t"+question);
+                        question = br.readLine();
+                        System.out.println("");
+                        System.out.println("Enter Your Answer");
+                        String input = stringLineReader();
+                        userAnswer.add(input);
+                        correctAnswer.add(question);
+                        if(input.equals(question) == true)
+                        {
+                            //System.out.println("Correct");
+                            score++;
+                        }
+                    }
+                }
+                catch(NumberFormatException e)
+                {
+                    System.out.println("End of Quiz");
+                    break;
+                }
+            }
+            System.out.println("");  
+            System.out.println("[Results]");
+            System.out.println("Score: "+score+"/"+numOfQ);
             
+            saveQuizInformation(fileName, userName, score, numOfQ, userAnswer, correctAnswer,quizQuestions);
 
-    // }
+        }   
+        catch (IOException e) {
+            e.printStackTrace(); 
+        }
+    }
+
+    public static void saveQuizInformation(String fileName, String userName, int score, int numOfQ, ArrayList<String> userAnswer,ArrayList<String> correctAnswer,ArrayList<String> quizQuestions)
+    {
+        try{
+            //this will create Question Files
+            File newFile = new File("StudentFiles/"+fileName+" - "+userName+".txt");
+            FileOutputStream sf = new FileOutputStream(newFile);
+            OutputStreamWriter sfw = new OutputStreamWriter(sf);
+            BufferedWriter sqi = new BufferedWriter(sfw);
+
+            sqi.write("Quiz - "+fileName);
+            sqi.newLine();
+            sqi.write("Name: "+userName);
+            sqi.newLine();
+            sqi.write("Score: "+score+"/"+numOfQ);
+            sqi.newLine();
+            sqi.newLine();
+            //System.out.println(userAnswer.size());
+            //System.out.println(quizQuestions.size());
+            for(int i=0; i<userAnswer.size();i++)
+            {
+                int qi = i+1;
+                sqi.write("Question "+qi+" : "+quizQuestions.get(i));
+                sqi.newLine();
+                sqi.write("\t[Answer] : "+userAnswer.get(i));
+                sqi.newLine();
+                sqi.write("\t[Correct Answer] : "+correctAnswer.get(i));
+                sqi.newLine();
+            }
+            sqi.close();
+        }
+        catch(IOException e)
+        {
+            System.out.println("[Error]: No File Found");
+        }
+    }
 
 
 //===================================Write to File===============================================
@@ -308,7 +464,7 @@ public class QuizGenerator {
         try 
         {
             System.out.println("");
-            System.out.println("Enter File Directory, Name, and File Type");
+            System.out.println("Enter File Name:");
             String fileName = stringLineReader();
             
             //this will create Question Files
@@ -374,8 +530,11 @@ public class QuizGenerator {
             answ.close();
 
             //This will be the output information for the answer file
+            //savew.write("Quiz - Start");
             Iterator saveiterate = QuestionHash.entrySet().iterator();
             Iterator saveAnsiterate = AnswerHash.entrySet().iterator();
+            savew.write("Quiz - Save File");
+            savew.newLine();
             while (saveiterate.hasNext() && saveAnsiterate.hasNext()) {
                 Map.Entry objans = (Entry)saveAnsiterate.next();
                 Map.Entry obj = (Entry)saveiterate.next();
@@ -557,19 +716,6 @@ public class QuizGenerator {
                                         value = 1;
                                         System.out.println();
                                         break;
-                                    // case 7:
-                                    //     //Make Answer Key
-                                    //     //Quiz file upload
-                                    //     System.out.println("Here are the results");
-                                    //     Iterator ity = AnswersHash.entrySet().iterator();
-                                        
-                                    //     while (ity.hasNext()) {
-                                    //         Map.Entry obj = (Entry)ity.next();
-                                    //         //String hashValue = (String) obj.getValue();
-                                    //         System.out.println(obj.getKey()+ " : [Answers] : \t"+obj.getValue());
-                                    //         //System.out.println(hashValue);
-                                    //     }
-                                    //     break;
                                     case 0:
                                         value = 1;
                                         break;
@@ -588,8 +734,9 @@ public class QuizGenerator {
                         //////////
                         break;
                     case 2:
-                        System.out.println("[Error]: Still in Development");
-                        System.out.println("");
+                        //System.out.println("[Error]: Still in Development");
+                        //System.out.println("");
+                        takeQuiz();
                         break;
                     case 3: 
                         //System.out.println("[Error]: File Opener Still in Development");

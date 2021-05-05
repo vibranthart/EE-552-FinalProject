@@ -1,0 +1,16 @@
+Quiz - FullTest
+Name: William Garcia
+Score: 3/4
+
+Question 1 : Who wears a suit of armor to fly and fight bad guys?
+	[Answer] : A
+	[Correct Answer] : A
+Question 2 : Captain America is worthy of the Hammer?
+	[Answer] : True
+	[Correct Answer] : True
+Question 3 : Explain why Thor didn't go for the head?
+	[Answer] : Revenge
+	[Correct Answer] : Make sure to mention revenge
+Question 4 : Who can hold Thor's Hammer?
+	[Answer] : AC
+	[Correct Answer] : AC
