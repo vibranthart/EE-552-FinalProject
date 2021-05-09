@@ -13,26 +13,6 @@ import java.io.OutputStreamWriter;
 import java.util.*;
 
 
-//NOTES
-// Hi welcome our program 
-// from 1-4  
-// take the user input  
-// 1 ask them for following: question, choices, and answer
-// answer can be put into arraylist which contains all the answer for type true/false
-// when time to answer said questions 
-//
-// 2 Question Type
-// Question asked
-// a
-// b
-// c
-// d
-// Answer -> A
-//  
-//Read from the saved file and program should understand its mc due to 2 
-// Final print out with results 
-
-
 public class QuizGenerator {
     
 //===================================Questions================================================
@@ -40,6 +20,7 @@ public class QuizGenerator {
     {
         //Types of Questions
         private String questionAsked;
+        //Type of question type -> 1 = T/F, 2 = M/C, 3 = S/A, 4 = Mutiple Answers
         private int questionType; 
 
         Questions(int questionType,String questionAsked)
@@ -61,20 +42,16 @@ public class QuizGenerator {
             else if(questionType == 2) //Multiple Choice
             {
                 ArrayList<String> mul = new ArrayList<>();
-                System.out.println("Input the m/c opinion");
-                System.out.println("Ex: a) Blackbeard");
+                System.out.println("Input for option 'A' ");
                 String a = stringLineReader();
                 
-                System.out.println("Input the m/c opinion");
-                System.out.println("Ex: b) Jamie from Joe Rogan Podcase");
+                System.out.println("Input for option 'B' ");
                 String b = stringLineReader();
                 
-                System.out.println("Input the m/c opinion");
-                System.out.println("Ex: c) Columbus");
+                System.out.println("Input for option 'C'");
                 String c = stringLineReader();
     
-                System.out.println("Input the m/c opinion");
-                System.out.println("Ex: d) Johnny Depp");
+                System.out.println("Input for option 'D' ");
                 String d = stringLineReader();
 
                 mul.add("a) "+a); 
@@ -87,7 +64,7 @@ public class QuizGenerator {
             else if(questionType == 3) // Open Ended 
             {
                 ArrayList<String> opend = new ArrayList<>();
-                System.out.println("Input Hints If Neede");
+                System.out.println("Input Hints If Needed");
                 System.out.println("Ex: Make sure to mention 'Why The British Lost' to get full credit");
                 String a = stringLineReader();
                 opend.add(a); 
@@ -97,28 +74,22 @@ public class QuizGenerator {
             else if(questionType == 4) // Mutiple Answers 
             {
                 ArrayList<String> mula = new ArrayList<>();
-                System.out.println("Input the m/a opinion");
-                //System.out.println("Ex: a) Blackbeard");
+                System.out.println("Input for option 'A'");
                 String a = stringLineReader();
                 
-                System.out.println("Input the m/a opinion");
-                //System.out.println("Ex: b) Jamie from Joe Rogan Podcase");
+                System.out.println("Input for option 'B'");
                 String b = stringLineReader();
                 
-                System.out.println("Input the m/a opinion");
-                //System.out.println("Ex: c) Columbus");
+                System.out.println("Input for option 'C'");
                 String c = stringLineReader();
     
-                System.out.println("Input the m/a opinion");
-                //System.out.println("Ex: d) Johnny Depp");
+                System.out.println("Input for option 'D'");
                 String d = stringLineReader();
 
-                System.out.println("Input a m/a opinion");
-                //System.out.println("Ex: e) SpongeBob Squarepants");
+                System.out.println("Input for option 'E'");
                 String e = stringLineReader();
 
-                System.out.println("Input a m/a opinion");
-                //System.out.println("Ex: f) Patrick Starfish");
+                System.out.println("Input for option 'F");
                 String f = stringLineReader();
 
                 mula.add("a) "+a); 
@@ -177,97 +148,9 @@ public class QuizGenerator {
         }
     }
 
-//===================================Multiple Choice================================================
-    public static class MultipleChoice 
-    {
-        private String mulAnswer;
-        private boolean correct;
 
-        MultipleChoice(String mulAnswer)
-        {
-            this.mulAnswer = mulAnswer;
-        }
-
-        // public void inputAnsChoice()
-        // {
-        //         System.out.println("[How Many Multiple Choice] : ");
-        //         int count = intLineReader();
-
-        //         for(int i = 0; i<count; i++)
-        //         {
-        //             System.out.println("[Enter Answer Choice] : ");
-        //             String input = stringLineReader();
-        //             MultipleChoice choice = new MultipleChoice(input);
-        //             //mul.add(choice);
-        //         }
-        // }
-
-        public void check(){
-            // look if the text file and the user input is the same 
-            // if they are they get a point 
-            // some thing simple as this 
-        }
-
-        @Override
-        public String toString()
-        {
-            return "[Multiple Choice Option] : " + mulAnswer + " (" + correct+")";
-        }
-    }
-
-    
-//===================================Open Ended================================================
-    public static class OpenEnded
-    {
-        private String correct;
-        OpenEnded(String correct)
-        {
-            this.correct = correct;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "[Open Ended Question]";
-        }
-    }
-
-
-//===================================Multiple Answers================================================
-    public static class MutipleAnswers {
-
-        private String mulAnswer;
-        private boolean correct;
-
-        MutipleAnswers(String mulAnswer, boolean correct){
-            this.mulAnswer = mulAnswer;
-            this.correct = correct;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "[Multiple Answer Options] : " + mulAnswer + " (" + correct + ")";
-        }
-    }
     
 //===================================Answer Generator================================================
-    public static class AnswerGenerator 
-    {
-        AnswerGenerator()
-        {
-
-        }
-
-
-        @Override
-        public String toString()
-        {
-            return "";
-        }
-    }  
-
-
     public static void takeQuiz(){
         //System.out.println("[Error]: File Opener Still in Development");
         File folder = new File("QuestionFiles/");
@@ -329,6 +212,7 @@ public class QuizGenerator {
                             //System.out.println("Correct");
                             score++;
                         }
+                        System.out.println("");
                     }
                     else if(qType == 2)
                     {
@@ -355,6 +239,7 @@ public class QuizGenerator {
                             //System.out.println("Correct");
                             score++;
                         }
+                        System.out.println("");
                     }
                     else if(qType == 3)
                     {
@@ -371,6 +256,7 @@ public class QuizGenerator {
                         correctAnswer.add(question);
                         userAnswer.add(input);
                         question = br.readLine();
+                        System.out.println("");
                     }
                     else if(qType == 4)
                     {
@@ -401,6 +287,7 @@ public class QuizGenerator {
                             //System.out.println("Correct");
                             score++;
                         }
+                        System.out.println("");
                     }
                 }
                 catch(NumberFormatException e)
@@ -740,25 +627,103 @@ public class QuizGenerator {
                         break;
                     case 3: 
                         //System.out.println("[Error]: File Opener Still in Development");
-                        File folder = new File("QuestionFiles/");
-                        File[] listOfFiles = folder.listFiles();
-                        for(int i=0; i<listOfFiles.length; i++)
-                        {
-                            if(listOfFiles[i].isFile())
-                            {
-                                System.out.println("File "+listOfFiles[i].getName());
-                            }
-                            else if(listOfFiles[i].isDirectory())
-                            {
-                                System.out.println("Directory "+listOfFiles[i].getName());
-                            }
+                        //int userfileInput = stringLineReader();
+                        System.out.println("Options : [1] - Question Files \t[2] - Answer Key \t[3] - Student Files \t[4]- Save File");
+                        int numFileInput = Integer.parseInt(reader.readLine());
+                        switch(numFileInput){
+                            case 1: //Access Questions File
+                                
+                                File folder = new File("QuestionFiles/");
+                                File[] listOfFiles = folder.listFiles();
+                                for(int i=0; i<listOfFiles.length; i++)
+                                {
+                                    if(listOfFiles[i].isFile())
+                                    {
+                                        System.out.println("File "+listOfFiles[i].getName());
+                                    }
+                                    else if(listOfFiles[i].isDirectory())
+                                    {
+                                        System.out.println("Directory "+listOfFiles[i].getName());
+                                    }
+                                }
+                                System.out.println("Enter file name");
+                                String fileName = stringLineReader();
+                                ProcessBuilder pb = new ProcessBuilder("Notepad.exe","QuestionFiles/"+fileName+".txt");
+                                pb.start();
+                                System.out.println("[Notification]: File Opened Successfully");
+                                System.out.println("");
+                                break;
+
+                            case 2: //Access Answer Key
+                                File folderAnswer = new File("AnswerKey/");
+                                File[] listOfFilesAnswer = folderAnswer.listFiles();
+                                for(int i=0; i<listOfFilesAnswer.length; i++)
+                                {
+                                    if(listOfFilesAnswer[i].isFile())
+                                    {
+                                        System.out.println("File "+listOfFilesAnswer[i].getName());
+                                    }
+                                    else if(listOfFilesAnswer[i].isDirectory())
+                                    {
+                                        System.out.println("Directory "+listOfFilesAnswer[i].getName());
+                                    }
+                                }
+                                System.out.println("Enter file name");
+                                String fileNameAnswer = stringLineReader();
+                                ProcessBuilder pbAnswer = new ProcessBuilder("Notepad.exe","AnswerKey/"+fileNameAnswer+".txt");
+                                pbAnswer.start();
+                                System.out.println("[Notification]: File Opened Successfully");
+                                System.out.println("");
+                                break;
+                            case 3: //Access Student Files
+                                File folderStudent = new File("StudentFiles/");
+                                File[] listOfFilesStudent = folderStudent.listFiles();
+                                for(int i=0; i<listOfFilesStudent.length; i++)
+                                {
+                                    if(listOfFilesStudent[i].isFile())
+                                    {
+                                        System.out.println("File "+listOfFilesStudent[i].getName());
+                                    }
+                                    else if(listOfFilesStudent[i].isDirectory())
+                                    {
+                                        System.out.println("Directory "+listOfFilesStudent[i].getName());
+                                    }
+                                }
+                                System.out.println("Enter file name");
+                                String fileNameStudent = stringLineReader();
+                                System.out.println("Enter student name");
+                                String studentName = stringLineReader();
+                                ProcessBuilder pbStudent = new ProcessBuilder("Notepad.exe","StudentFiles/"+fileNameStudent+" - "+studentName+".txt");
+                                pbStudent.start();
+                                System.out.println("[Notification]: File Opened Successfully");
+                                System.out.println("");
+                                break;
+                            case 4: //Access Save File
+                                File folderSave = new File("SaveFile/");
+                                File[] listOfFilesSave = folderSave.listFiles();
+                                for(int i=0; i<listOfFilesSave.length; i++)
+                                {
+                                    if(listOfFilesSave[i].isFile())
+                                    {
+                                        System.out.println("File "+listOfFilesSave[i].getName());
+                                    }
+                                    else if(listOfFilesSave[i].isDirectory())
+                                    {
+                                        System.out.println("Directory "+listOfFilesSave[i].getName());
+                                    }
+                                }
+                                System.out.println("Enter file name");
+                                String fileNameSave = stringLineReader();
+                                ProcessBuilder pbSave = new ProcessBuilder("Notepad.exe","SaveFile/"+fileNameSave+".txt");
+                                pbSave.start();
+                                System.out.println("[Notification]: File Opened Successfully");
+                                System.out.println("");
+                                break;
+                            default: 
+                                System.out.println("[Error]: Please enter a valid number");
+                                break;
                         }
-                        System.out.println("Enter file name");
-                        String fileName = stringLineReader();
-                        ProcessBuilder pb = new ProcessBuilder("Notepad.exe","QuestionFiles/"+fileName+".txt");
-                        pb.start();
-                        System.out.println("[Notification]: File Opened Successfully");
-                        System.out.println("");
+                        
                         break;
                     default:
                         System.out.println("[Error]: Please Enter a valid number");
@@ -772,6 +737,6 @@ public class QuizGenerator {
                 }
         }
         
-}
+    }
 }
 

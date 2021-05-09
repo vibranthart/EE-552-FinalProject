@@ -1,0 +1,16 @@
+Question 1: Captain America is able to hold the Mjolnir (Thor's Hammer)?
+
+	[Answers] : True
+
+Question 2: Who wears a suit armor to fight bad guys?
+
+	[Answers] : A
+
+Question 3: Why didn't Thor go for the head?
+
+	[Answers] : He wanted to savour his revenge
+
+Question 4: Who can hold Mjolnir?
+
+	[Answers] : ABC
+
